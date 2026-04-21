@@ -1,0 +1,61 @@
+schema: '2.0'
+stages:
+  clean_data:
+    cmd: python src/clean_data.py
+    deps:
+    - path: src/clean_data.py
+      hash: md5
+      md5: 0816673646ab663625d24e277141ff1f
+      size: 1195
+    outs:
+    - path: data/df_clean.csv
+      hash: md5
+      md5: f9792c74a0535ef45ff5b92cd04ff588
+      size: 909740
+  generate_features:
+    cmd: python src/generate_features.py
+    deps:
+    - path: data/df_clean.csv
+      hash: md5
+      md5: f9792c74a0535ef45ff5b92cd04ff588
+      size: 909740
+    - path: src/generate_features.py
+      hash: md5
+      md5: 09586c5ce5d1c517c6588a1fea71e611
+      size: 518
+    outs:
+    - path: data/df_features.csv
+      hash: md5
+      md5: 6cacab1d5c0fed64a792cd8207572734
+      size: 1489547
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+    - path: data/df_features.csv
+      hash: md5
+      md5: 6cacab1d5c0fed64a792cd8207572734
+      size: 1489547
+    - path: src/train_model.py
+      hash: md5
+      md5: 95db33f64862097c12f11811c58c6e92
+      size: 679
+    outs:
+    - path: data/model.pkl
+      hash: md5
+      md5: 000a9023e8231533c01159b1656e1f53
+      size: 1645
+  evaluate_model:
+    cmd: python src/evaluate_model.py
+    deps:
+    - path: data/df_features.csv
+      hash: md5
+      md5: 6cacab1d5c0fed64a792cd8207572734
+      size: 1489547
+    - path: data/model.pkl
+      hash: md5
+      md5: 000a9023e8231533c01159b1656e1f53
+      size: 1645
+    - path: src/evaluate_model.py
+      hash: md5
+      md5: 7cfe8f6ade7565d4c037e6cdcc46d645
+      size: 723

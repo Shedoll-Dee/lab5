@@ -1,0 +1,31 @@
+stages:
+
+  clean_data:
+    cmd: python src/clean_data.py
+    deps:
+      - src/clean_data.py
+    outs:
+      - data/df_clean.csv
+
+  generate_features:
+    cmd: python src/generate_features.py
+    deps:
+      - src/generate_features.py
+      - data/df_clean.csv
+    outs:
+      - data/df_features.csv
+
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+      - src/train_model.py
+      - data/df_features.csv
+    outs:
+      - data/model.pkl
+
+  evaluate_model:
+    cmd: python src/evaluate_model.py
+    deps:
+      - src/evaluate_model.py
+      - data/df_features.csv
+      - data/model.pkl
