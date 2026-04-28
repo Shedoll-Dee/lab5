@@ -5,6 +5,7 @@ build/
 dist/
 wheels/
 dvc_storage/
+data/
 *.egg-info
 
 # Virtual environments
